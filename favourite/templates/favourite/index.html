@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+{% extends 'favourite/base.html' %}
+{% block title %}Quotes{% endblock %}
+{% block content %}
 <title>QUOTES</title>
 <div class="container">
-    <div class="row">
+    <div class="row" style="padding-top:15px">
                 {%if quotes%}
                     {%for quote in quotes%}
                     <div class="col-sm-6">
@@ -11,12 +11,12 @@
                             <div class="card-body">
                                 <h3 class="text-info text-center">{{quote.title}}</h3>
                                 <hr>
-                                <h5><i class="fas fa-quote-left"></i> {{quote.quote}} <i class="fas fa-quote-right"></i> </h5>
+                                <h5><i class="fas fa-quote-left"></i><a href="{% url 'favourite:all-comment' quote.id%}"> {{quote.quote}} </a><i class="fas fa-quote-right"></i> </h5>
                                 <h6>{{quote.author}}</h6>
                                 <h6>{{quote.date}}</h6>
                                 <div class="form-group">
-                                    <a href="{%url 'favourite:update-quote' quote.id %}"><i class="fas fa-edit" style="float-right"></i></a>
-                                    <a href="{%url 'favourite:comment' quote.id%}"><i class="fas fa-comment-dots"></i> </a>
+                                    <a href="{% url 'favourite:update-quote' quote.id %}"><i class="fas fa-edit" style="float-right"></i></a>
+                                    <a href="{% url 'favourite:comment' quote.id %}"><i class="fas fa-comment-dots"></i> </a>
                                 </div>
 
                             </div>
@@ -28,3 +28,4 @@
         <div class="col-sm-6"></div>
     </div>
 </div>
+{% endblock %}

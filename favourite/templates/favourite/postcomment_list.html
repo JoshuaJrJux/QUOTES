@@ -1,0 +1,50 @@
+{% extends 'favourite/base.html' %}
+{% block title %}Comments{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Quote Information -->
+        <div class="col-sm-3">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="caption">
+                        <h4 class="text-info">{{ quote.title}}</h4>
+                        <h5>{{ quote.quote}}</h5>
+                        <h6>{{ quote.author}}</h6>
+                        <h6>{{ quote.date}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <! -- Commment Information -->
+        <div class="col-sm-9">
+            <ul class="nav nav-pills">
+
+                <li><a href="{% url 'favourite:comment' quote.id %}"> Add Comment</a></li>
+                <li><a href=""></a></li>
+            </ul>
+            <div class="card card-default" style="margin">
+                <div class="card-body">
+                    <h3 class="text-info">Comments</h3>
+                    <hr>
+
+                    <table class="table">
+
+                        <tbody>
+                        {% if quote.postcomment_set %}
+                        {% for comment in quote.postcomment_set.all %}
+                        <tr>
+                            <td>{{ comment.comment }}</td>
+
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
