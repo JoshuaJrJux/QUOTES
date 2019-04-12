@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView, UpdateView
 from .models import PostQuote, PostComment
 
@@ -18,7 +18,7 @@ class PostQuoteCreateView(CreateView):
 
 class PostCommentCreateView(CreateView):
     model = PostComment
-    fields = ['comment', 'date']
+    fields = ['comment']
 
     def form_valid(self, form, **kwargs):
         quote = get_object_or_404(PostQuote, pk=self.kwargs.get('pk'))
@@ -34,3 +34,20 @@ class UpdateQuoteUpdateView(UpdateView):
 def allcomment(request, quote_id):
     quote = get_object_or_404(PostQuote, pk=quote_id)
     return render(request, 'favourite/postcomment_list.html', {'quote': quote})
+
+def delete_quote (request, quote_id):
+    quote = get_object_or_404(PostQuote, pk=quote_id)
+    quote.delete()
+    return redirect('/')
+
+def delete_comment(request, quote_id, comment_id):
+    quote = get_object_or_404(PostQuote, pk=quote_id)
+    comment = get_object_or_404(PostComment, pk=comment_id)
+    comment.delete()
+    return render(request, 'favourite/postcomment_list.html', {'quote': quote})
+
+class UpdateCommentUpdateView(UpdateView):
+    model = PostComment
+    fields = ['comment']
+    template_name = 'favourite/postcomment_form.html'
+

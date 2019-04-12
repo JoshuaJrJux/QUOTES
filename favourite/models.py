@@ -21,4 +21,4 @@ class PostComment(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('favourite:index')
+        return reverse('favourite:all-comment',  args=[str(self.pk)])

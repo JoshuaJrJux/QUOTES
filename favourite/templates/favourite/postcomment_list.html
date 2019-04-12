@@ -12,6 +12,7 @@
                         <h5>{{ quote.quote}}</h5>
                         <h6>{{ quote.author}}</h6>
                         <h6>{{ quote.date}}</h6>
+                        <li><a href="{% url 'favourite:comment' quote.id %}"><i class="fas fa-comment-dots"></i></a></li>
                     </div>
                 </div>
             </div>
@@ -21,7 +22,7 @@
         <div class="col-sm-9">
             <ul class="nav nav-pills">
 
-                <li><a href="{% url 'favourite:comment' quote.id %}"> Add Comment</a></li>
+
                 <li><a href=""></a></li>
             </ul>
             <div class="card card-default" style="margin">
@@ -32,10 +33,16 @@
                     <table class="table">
 
                         <tbody>
+                        <th>Comments</th>
+                        <th>Action</th>
                         {% if quote.postcomment_set %}
                         {% for comment in quote.postcomment_set.all %}
+
                         <tr>
                             <td>{{ comment.comment }}</td>
+                           <td><a href="{%url 'favourite:delete-comment' quote.id comment.id%}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> </a>
+                               <a href="{% url 'favourite:update-comment' comment.id%}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                           </td>
 
                         </tr>
                         {% endfor %}
